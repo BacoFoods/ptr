@@ -23,3 +23,13 @@ func EqualVals[T comparable](a, b *T) bool {
 
 	return *a == *b
 }
+
+// NilIfZero returns a pointer to the value passed in if it is not the zero value.
+// If it is the zero value, it returns nil.
+func NilIfZero[T comparable](v T) *T {
+	if v == *new(T) {
+		return nil
+	}
+
+	return &v
+}

@@ -91,3 +91,37 @@ func TestEqualVals(t *testing.T) {
 		}
 	})
 }
+
+func TestNilIfZero(t *testing.T) {
+	t.Run("non-zero value", func(t *testing.T) {
+		val := 42
+		ptr := NilIfZero(val)
+		if ptr == nil || *ptr != val {
+			t.Errorf("expected pointer to %d, got nil or incorrect value", val)
+		}
+	})
+
+	t.Run("zero value", func(t *testing.T) {
+		val := 0
+		ptr := NilIfZero(val)
+		if ptr != nil {
+			t.Errorf("expected nil, got pointer to %d", *ptr)
+		}
+	})
+
+	t.Run("non-zero string", func(t *testing.T) {
+		val := "test"
+		ptr := NilIfZero(val)
+		if ptr == nil || *ptr != val {
+			t.Errorf("expected pointer to %s, got nil or incorrect value", val)
+		}
+	})
+
+	t.Run("zero string", func(t *testing.T) {
+		val := ""
+		ptr := NilIfZero(val)
+		if ptr != nil {
+			t.Errorf("expected nil, got pointer to %s", *ptr)
+		}
+	})
+}
